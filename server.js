@@ -5,9 +5,9 @@ const server = express()
 server.use(express.json())
 
 let users = [
-	{ id: "1", name: "Jane Doe" },
-	{ id: "2", name: "John Doe" },
-	{ id: "3", name: "Jack Doe" },
+	{ id: "1", name: "Jane Doe", "bio": "I am a Dinosaur" },
+	{ id: "2", name: "John Doe", "bio": "I am a Caveman" },
+	{ id: "3", name: "Jack Doe", "bio": "I am a Poptart" },
 ]
 
 // GET USERS
@@ -38,11 +38,9 @@ server.get("/users/:id", (req, res) => {
 
 // ADD NEW USER
 server.post("/users", (req, res) => {
-	// never trust data coming from the client,
-	// always validate it to some degree. make sure it's what you're expecting
-	if (!req.body.name) {
+	if (!req.body.name || !req.body.bio) {
 		return res.status(400).json({
-			message: "Need a name for the user",
+			message: "You are missing the name or bio",
 		})
     }
     
@@ -57,7 +55,8 @@ server.post("/users", (req, res) => {
     }
 
 	const newUser = createUser({
-		name: req.body.name,
+        name: req.body.name,
+        bio: req.body.bio,
 	})
 
 	res.status(201).json(newUser)
@@ -84,7 +83,8 @@ server.put("/users/:id", (req, res) => {
 
 	if (user) {
 		const updatedUser = updateUser(user.id, {
-			name: req.body.name || user.name,
+            name: req.body.name || user.name,
+            bio: req.body.bio || user.bio,
 		})
 
 		res.json(updatedUser)
@@ -97,7 +97,7 @@ server.put("/users/:id", (req, res) => {
 
 // DELETE USER
 server.delete("/users/:id", (req, res) => {
-    
+
     function getUserById(id) {
         return users.find(u => u.id === id)
     }
