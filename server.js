@@ -17,6 +17,7 @@ server.get("/users", (req, res) => {
     }
 	res.json(getUsers())
 })
+////////////////////////////////////////
 
 // GET BY ID
 server.get("/users/:id", (req, res) => {
@@ -31,16 +32,17 @@ server.get("/users/:id", (req, res) => {
 		res.json(user)
 	} else {
 		res.status(404).json({
-			message: "User not found",
+			errorMessage: "User not found",
 		})
 	}
 })
+/////////////////////////////////////////////////
 
 // ADD NEW USER
 server.post("/users", (req, res) => {
 	if (!req.body.name || !req.body.bio) {
 		return res.status(400).json({
-			message: "You are missing the name or bio",
+			errorMessage: "Please provide name and bio for the user.",
 		})
     }
     
@@ -61,6 +63,7 @@ server.post("/users", (req, res) => {
 
 	res.status(201).json(newUser)
 })
+/////////////////////////////////////////////////
 
 // UPDATE USER
 server.put("/users/:id", (req, res) => {
@@ -94,6 +97,7 @@ server.put("/users/:id", (req, res) => {
 		})
 	}
 })
+/////////////////////////////////////////////////
 
 // DELETE USER
 server.delete("/users/:id", (req, res) => {
@@ -117,6 +121,7 @@ server.delete("/users/:id", (req, res) => {
 		})
 	}
 })
+/////////////////////////////////////////////////
 
 server.listen(5000, () => {
 	console.log("server started on port 5000")
