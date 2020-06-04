@@ -68,17 +68,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1>App for Backend Project</h1>
-        <div>
-          {data.map((data) => (
-            <div key={data.id}>
-              <p>
-                Name: {data.name}<br />
-                Bio: {data.bio}
-              </p>
-              <button onClick={(e) => updateFormHandler(e, data.id, data.name, data.bio)}>update</button> || <button onClick={(e) => deleteUser(e, data.id)}>delete</button>
-            </div>
-          ))}
-        </div>
+        
         {showForm ? (
           <>
             <h3>Update {formData.name}</h3>
@@ -96,6 +86,17 @@ function App() {
           <AddUser />
           </>
         )}
+        <div>
+          {data.map((data) => (
+            <div key={data.id}>
+              <p>
+                Name: {data.name}<br />
+                Bio: {data.bio}
+              </p>
+              <button onClick={(e) => updateFormHandler(e, data.id, data.name, data.bio)}>update</button> || <button onClick={(e) => deleteUser(e, data.id)}>delete</button>
+            </div>
+          ))}
+        </div>
       </header>
     </div>
   );
