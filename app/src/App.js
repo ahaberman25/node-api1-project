@@ -12,7 +12,7 @@ function App() {
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = submittedData => {
     axios
-      .put(`http://localhost:5000/users/${submittedData.id}`, submittedData)
+      .put(`https://apii-server.herokuapp.com/users/${submittedData.id}`, submittedData)
       .then(res => {
         console.log(res)
       })
@@ -25,7 +25,7 @@ function App() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:5000/users')
+      .get('https://apii-server.herokuapp.com/users')
       .then(res => {
         console.log(res)
         setData(res.data)
@@ -52,7 +52,7 @@ function App() {
 		e.preventDefault();
 		console.log("deleting");
 		axios
-			.delete(`http://localhost:5000/users/${id}`)
+			.delete(`https://apii-server.herokuapp.com/users/${id}`)
 			.then((res) => console.log(res))
 			.catch((err) => console.log("delete error ", err))
 			.finally(() => window.location.reload());
@@ -74,8 +74,8 @@ function App() {
             <h3>Update {formData.name}</h3>
               <form onSubmit={handleSubmit(onSubmit)}>
               <input type="hidden" placeholder={formData.id} name="id" defaultValue={formData.id} ref={register({required: true, maxLength: 80})} />
-                <input type="text" placeholder={formData.name} name="name" ref={register({required: true, maxLength: 80})} />
-                <input type="text" placeholder={formData.bio} name="bio" ref={register({required: true, maxLength: 100})} />
+                <input type="text" placeholder={formData.name} name="name" defaultValue={formData.name} ref={register({required: true, maxLength: 80})} />
+                <input type="text" placeholder={formData.bio} name="bio" defaultValue={formData.bio} ref={register({required: true, maxLength: 100})} />
 
                 <input type="submit" /> 
               </form><br />

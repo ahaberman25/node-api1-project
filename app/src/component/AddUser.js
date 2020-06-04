@@ -7,7 +7,7 @@ function AddUser() {
     const { register, handleSubmit, errors } = useForm();
     const onSubmit = data => {
         axios
-            .post('http://localhost:5000/users', data)
+            .post('https://apii-server.herokuapp.com/users', data)
             .then(res => {console.log(res)})
             .catch(err => {console.log(err)})
             .finally(() => window.location.reload());
